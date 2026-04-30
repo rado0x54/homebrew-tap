@@ -1,5 +1,19 @@
+# BLOCKED until rado0x54/ShellWatch goes public. The release-download URLs
+# below resolve to 404 anonymously while the upstream repo is private —
+# brew install cannot carry GitHub auth, so this formula will fail until
+# the main repo's visibility flips. Status:
+#
+#   - Formula passes `brew audit shellwatch-agent` clean.
+#   - `gh release view agent/v0.0.1 -R rado0x54/ShellWatch` confirms the
+#     four expected binaries + sha256 files exist; the formula's hashes
+#     match those artifacts.
+#   - Re-run `brew install rado0x54/tap/shellwatch-agent` end-to-end once
+#     rado0x54/ShellWatch is public (gated by #147 — license adoption).
+#
+# Tracked at: rado0x54/ShellWatch issue #35.
+
 class ShellwatchAgent < Formula
-  desc "Thin SSH agent proxy for ShellWatch — system SSH clients use ShellWatch-managed keys"
+  desc "Thin SSH agent proxy for ShellWatch — system SSH uses ShellWatch keys"
   homepage "https://github.com/rado0x54/ShellWatch"
   version "0.0.1"
 
