@@ -2,9 +2,7 @@
 
 Homebrew tap for [ShellWatch](https://github.com/rado0x54/ShellWatch) tools.
 
-> **Status: not yet installable.** The `shellwatch-agent` formula is in place and `brew audit`s clean, but the binaries it points at live in a release on the (currently private) upstream `rado0x54/ShellWatch` repo. `brew install` cannot carry GitHub auth, so the URLs 404 anonymously until the upstream goes public. Re-test once that ships.
-
-## Install (once upstream is public)
+## Install
 
 ```bash
 brew install rado0x54/tap/shellwatch-agent

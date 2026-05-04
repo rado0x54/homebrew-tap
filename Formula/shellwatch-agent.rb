@@ -1,41 +1,27 @@
-# BLOCKED until rado0x54/ShellWatch goes public. The release-download URLs
-# below resolve to 404 anonymously while the upstream repo is private —
-# brew install cannot carry GitHub auth, so this formula will fail until
-# the main repo's visibility flips. Status:
-#
-#   - Formula passes `brew audit shellwatch-agent` clean.
-#   - `gh release view agent/v0.0.1 -R rado0x54/ShellWatch` confirms the
-#     four expected binaries + sha256 files exist; the formula's hashes
-#     match those artifacts.
-#   - Re-run `brew install rado0x54/tap/shellwatch-agent` end-to-end once
-#     rado0x54/ShellWatch is public (gated by #147 — license adoption).
-#
-# Tracked at: rado0x54/ShellWatch issue #35.
-
 class ShellwatchAgent < Formula
   desc "Thin SSH agent proxy for ShellWatch — system SSH uses ShellWatch keys"
   homepage "https://github.com/rado0x54/ShellWatch"
-  version "0.0.1"
+  version "1.0.0"
 
   on_macos do
     on_arm do
       url "https://github.com/rado0x54/ShellWatch/releases/download/agent/v#{version}/shellwatch-agent-darwin-arm64"
-      sha256 "9cf6cf63eac416811688866e3a513fa34750b1b92965d3fd2936b38936aa6301"
+      sha256 "5f525a63311b111cbcedd06b011f8ed04cdc8fff9a042e4c08eddcb2ecd02c3c"
     end
     on_intel do
       url "https://github.com/rado0x54/ShellWatch/releases/download/agent/v#{version}/shellwatch-agent-darwin-amd64"
-      sha256 "78b2abc2c821c5a8f2e65dcfaf20ef8fe7832d0be84defe3b0d5b9d468981c40"
+      sha256 "8cc4309c566f9db58510f855dcedc6a925f4464f1d2ac549e264c57ade9347af"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/rado0x54/ShellWatch/releases/download/agent/v#{version}/shellwatch-agent-linux-arm64"
-      sha256 "340982736c6cb9e61d226090f5e5115403fede191f40c32fc4e2450d926a47ba"
+      sha256 "89e13982d2111c93891804b51c73d767ffbebc143885dc946b7c9348a2a9d9a6"
     end
     on_intel do
       url "https://github.com/rado0x54/ShellWatch/releases/download/agent/v#{version}/shellwatch-agent-linux-amd64"
-      sha256 "1827f0eab0203ea1ad05cba6d45f5818a5e77fd0cb7502acd0c02db68fc62310"
+      sha256 "788354fc67254040f4a976c2082a44fb3259acb9862e8377df5ba7831a76a590"
     end
   end
 
