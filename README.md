@@ -47,16 +47,16 @@ The daemon uses `https://app.shellwatch.ai` by default; override with `--server`
 The release binary statically links libdvbcsa, libsrt, libhdhomerun, and OpenSSL — only system libs are dynamic, so no extra Homebrew dependencies are needed.
 
 ```bash
-# Web UI lives under share/minisatip/; firmware blobs go under var/.
-# Service block bakes in -R and FIRMWARE_DIR, so brew services just works:
+# Service binds non-privileged ports (no sudo required):
+#   HTTP/UI: http://localhost:9080
+#   RTSP:    rtsp://localhost:9554
 brew services start minisatip
 
-# Or run directly:
-FIRMWARE_DIR="$(brew --prefix)/var/lib/minisatip/firmware" \
-  minisatip -R "$(brew --prefix minisatip)/share/minisatip/html"
+# Open the web UI to verify:
+open http://localhost:9080
 ```
 
-For userspace DVB hardware, drop firmware blobs into `$(brew --prefix)/var/lib/minisatip/firmware` — this path survives `brew upgrade`. See `$(brew --prefix minisatip)/share/doc/minisatip/firmware-README.txt` for blob sources.
+HDHomeRun emulation activates automatically when `-p` points at an M3U file inside the document root (`-R`). For userspace DVB hardware, drop firmware blobs into `$(brew --prefix)/var/lib/minisatip/firmware` — this path survives `brew upgrade`. See `$(brew --prefix minisatip)/share/doc/minisatip/firmware-README.txt` for blob sources.
 
 ## Updates
 

@@ -1,7 +1,7 @@
 class Minisatip < Formula
   desc "SAT>IP server with HDHomeRun emulation, userspace DVB drivers, and macOS support"
   homepage "https://github.com/rado0x54/minisatip"
-  version "0.1.2"
+  version "0.1.3"
   license "GPL-2.0-or-later"
 
   # The release binary is built with libdvbcsa, libsrt, libhdhomerun, and
@@ -12,23 +12,23 @@ class Minisatip < Formula
   on_macos do
     on_arm do
       url "https://github.com/rado0x54/minisatip/releases/download/v#{version}/minisatip-userspace-dvb-arm64-darwin.zip"
-      sha256 "19c478028a2c693f16faa8f66827f4fca9fdfb8d2da1160f0b3b65da959ac221"
+      sha256 "c98e5fb87989b6a98710973e702b67f69fd7f5594daf5bd109028c01b83f469d"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/rado0x54/minisatip/releases/download/v#{version}/minisatip-userspace-dvb-aarch64-linux.zip"
-      sha256 "edb17ac410b10249a23b5c25480088602ceb0e75a1c98463deb9f85c71a1d7f5"
+      sha256 "06a722148c4381f854ae0a907c2f70d6d5830e81d4b8fd5d7f8007cb2d0840a6"
     end
     on_intel do
       url "https://github.com/rado0x54/minisatip/releases/download/v#{version}/minisatip-userspace-dvb-x86_64-linux.zip"
-      sha256 "51c55da573f1237e8f018bcba41e38c408e9d5293959fcce61826015265c1a5b"
+      sha256 "7b23e104d7e1450153099353546597edffdab68ff793ca77c51627c2a3cecd27"
     end
   end
 
   def install
-    bin.install "build/minisatip"
+    bin.install "minisatip"
     pkgshare.install "html"
     # The release zip ships a firmware/README.txt explaining where to
     # source DVB chip-driver blobs. Install that as a docs reference;
@@ -36,6 +36,7 @@ class Minisatip < Formula
     # manage it under var/, which survives brew upgrade.
     doc.install "firmware/README.txt" => "firmware-README.txt"
     (var/"lib/minisatip/firmware").mkpath
+    (var/"cache/minisatip").mkpath
   end
 
   def caveats
@@ -48,20 +49,35 @@ class Minisatip < Formula
 
       See #{opt_share}/doc/minisatip/firmware-README.txt for blob sources.
 
-      Run as a launchd service (web UI + firmware path baked in):
+      The launchd service binds non-privileged ports (no sudo required):
+        HTTP/UI: http://localhost:9080
+        RTSP:    rtsp://localhost:9554
+
+      Run as a launchd service (paths + ports baked in):
 
         brew services start minisatip
 
       Or run directly:
 
-        FIRMWARE_DIR=#{var}/lib/minisatip/firmware \\
-          minisatip -R #{opt_pkgshare}/html
+        minisatip -R #{opt_pkgshare}/html \\
+          --firmware-dir #{var}/lib/minisatip/firmware \\
+          --cache-dir #{var}/cache/minisatip \\
+          -x 9080 -y 9554
+
+      If your SAT>IP client doesn't auto-discover via SSDP, point it at
+      port 9554 (RTSP) directly. Override with -x / -y as needed.
     EOS
   end
 
   service do
-    run [opt_bin/"minisatip", "-R", opt_pkgshare/"html"]
-    environment_variables FIRMWARE_DIR: var/"lib/minisatip/firmware"
+    run [
+      opt_bin/"minisatip",
+      "-R", opt_pkgshare/"html",
+      "--firmware-dir", var/"lib/minisatip/firmware",
+      "--cache-dir", var/"cache/minisatip",
+      "-x", "9080",
+      "-y", "9554"
+    ]
     keep_alive true
     log_path var/"log/minisatip.log"
     error_log_path var/"log/minisatip.err.log"
