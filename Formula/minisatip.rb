@@ -1,7 +1,7 @@
 class Minisatip < Formula
   desc "SAT>IP server with HDHomeRun emulation, userspace DVB drivers, and macOS support"
   homepage "https://github.com/rado0x54/minisatip"
-  version "0.1.3"
+  version "0.1.4"
   license "GPL-2.0-or-later"
 
   # The release binary is built with libdvbcsa, libsrt, libhdhomerun, and
@@ -12,18 +12,18 @@ class Minisatip < Formula
   on_macos do
     on_arm do
       url "https://github.com/rado0x54/minisatip/releases/download/v#{version}/minisatip-userspace-dvb-arm64-darwin.zip"
-      sha256 "c98e5fb87989b6a98710973e702b67f69fd7f5594daf5bd109028c01b83f469d"
+      sha256 "f60b7586e38f6783a41b2648c677f00cc06c1d96d934fbe8768dfdd54ecf06a6"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/rado0x54/minisatip/releases/download/v#{version}/minisatip-userspace-dvb-aarch64-linux.zip"
-      sha256 "06a722148c4381f854ae0a907c2f70d6d5830e81d4b8fd5d7f8007cb2d0840a6"
+      sha256 "bcd99b9e0226625baa3d9905f45bbf25c5287fe26e3fcbd90f91bb6c3e37cd53"
     end
     on_intel do
       url "https://github.com/rado0x54/minisatip/releases/download/v#{version}/minisatip-userspace-dvb-x86_64-linux.zip"
-      sha256 "7b23e104d7e1450153099353546597edffdab68ff793ca77c51627c2a3cecd27"
+      sha256 "8e8c5825fe9c109c69eb8d4d91929fe8fbe2f0406330d050cdca38a67dd38567"
     end
   end
 
@@ -74,9 +74,17 @@ class Minisatip < Formula
     # is to fork-and-detach, which would orphan the daemon and make
     # launchctl think the service exited cleanly (so KeepAlive can't
     # restart it). With -f, the process launchd spawned IS the daemon.
+    #
+    # -l general turns on LOG_GENERAL (bit 0) so the LOG() calls that
+    # cover device discovery, firmware resolution, adapter bring-up,
+    # and similar non-error informational messages are written. With
+    # the default opts.log = 0, those go silent and you only see
+    # LOG0() lines (version banner + "Initializing with N devices"),
+    # which makes diagnosing "no tuners found" very hard.
     run [
       opt_bin/"minisatip",
       "-f",
+      "-l", "general",
       "-R", opt_pkgshare/"html",
       "--firmware-dir", var/"lib/minisatip/firmware",
       "--cache-dir", var/"cache/minisatip",
