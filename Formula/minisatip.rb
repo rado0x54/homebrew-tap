@@ -1,7 +1,7 @@
 class Minisatip < Formula
   desc "SAT>IP server with HDHomeRun emulation, userspace DVB drivers, and macOS support"
   homepage "https://github.com/rado0x54/minisatip"
-  version "0.1.4"
+  version "0.2.0"
   license "GPL-2.0-or-later"
 
   # The release binary is built with libdvbcsa, libsrt, libhdhomerun, and
@@ -12,18 +12,18 @@ class Minisatip < Formula
   on_macos do
     on_arm do
       url "https://github.com/rado0x54/minisatip/releases/download/v#{version}/minisatip-userspace-dvb-arm64-darwin.zip"
-      sha256 "f60b7586e38f6783a41b2648c677f00cc06c1d96d934fbe8768dfdd54ecf06a6"
+      sha256 "e91a44b1135c8f1c963a13f7099a551bee915822d28473777da0d9f9cf837e6e"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/rado0x54/minisatip/releases/download/v#{version}/minisatip-userspace-dvb-aarch64-linux.zip"
-      sha256 "bcd99b9e0226625baa3d9905f45bbf25c5287fe26e3fcbd90f91bb6c3e37cd53"
+      sha256 "ea26f5a7d3daa39ef580285cb2f8d45f7eba06b926813f54a71b559be4c8bbd1"
     end
     on_intel do
       url "https://github.com/rado0x54/minisatip/releases/download/v#{version}/minisatip-userspace-dvb-x86_64-linux.zip"
-      sha256 "8e8c5825fe9c109c69eb8d4d91929fe8fbe2f0406330d050cdca38a67dd38567"
+      sha256 "eeed80b416ca46654ccc7e2c89476ee786862294cd7440ededeae92ce355c4c3"
     end
   end
 
