@@ -70,8 +70,13 @@ class Minisatip < Formula
   end
 
   service do
+    # -f / --foreground is mandatory under launchd: minisatip's default
+    # is to fork-and-detach, which would orphan the daemon and make
+    # launchctl think the service exited cleanly (so KeepAlive can't
+    # restart it). With -f, the process launchd spawned IS the daemon.
     run [
       opt_bin/"minisatip",
+      "-f",
       "-R", opt_pkgshare/"html",
       "--firmware-dir", var/"lib/minisatip/firmware",
       "--cache-dir", var/"cache/minisatip",
