@@ -1,27 +1,27 @@
 class ShellwatchAgent < Formula
   desc "Thin SSH agent proxy for ShellWatch — system SSH uses ShellWatch keys"
   homepage "https://github.com/rado0x54/ShellWatch"
-  version "1.0.0"
+  version "1.1.0"
 
   on_macos do
     on_arm do
       url "https://github.com/rado0x54/ShellWatch/releases/download/agent/v#{version}/shellwatch-agent-darwin-arm64"
-      sha256 "5f525a63311b111cbcedd06b011f8ed04cdc8fff9a042e4c08eddcb2ecd02c3c"
+      sha256 "2490675a46cbbd1ea0d769212ba4be1137140fb18fd7e4e81d97e42ffea57a78"
     end
     on_intel do
       url "https://github.com/rado0x54/ShellWatch/releases/download/agent/v#{version}/shellwatch-agent-darwin-amd64"
-      sha256 "8cc4309c566f9db58510f855dcedc6a925f4464f1d2ac549e264c57ade9347af"
+      sha256 "f19e2f48f491339f2ebae1fde874360d7f95e0f1b86dd98a57b4e5d8c55309aa"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/rado0x54/ShellWatch/releases/download/agent/v#{version}/shellwatch-agent-linux-arm64"
-      sha256 "89e13982d2111c93891804b51c73d767ffbebc143885dc946b7c9348a2a9d9a6"
+      sha256 "c3c0a86f2359e353a49fa2fdb7e921c4c10b752d85c7e3a85aaeeaa027acab64"
     end
     on_intel do
       url "https://github.com/rado0x54/ShellWatch/releases/download/agent/v#{version}/shellwatch-agent-linux-amd64"
-      sha256 "788354fc67254040f4a976c2082a44fb3259acb9862e8377df5ba7831a76a590"
+      sha256 "eac23f5ed367f7ede4179ab34e91c0d0dfda8250c59bb50eb16366ecdccc165a"
     end
   end
 
