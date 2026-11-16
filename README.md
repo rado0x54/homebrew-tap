@@ -11,6 +11,13 @@ brew install rado0x54/tap/minisatip
 
 (Brew auto-derives the tap URL from the `homebrew-` prefix on the repo name; no separate `brew tap` step required.)
 
+To add the tap explicitly first:
+
+```bash
+brew tap rado0x54/tap
+brew install shellwatch-agent
+```
+
 ## What's here
 
 | Formula | Description |
@@ -60,7 +67,7 @@ HDHomeRun emulation activates automatically when `-p` points at an M3U file insi
 
 ## Updates
 
-Each new ShellWatch agent release (`agent/v*` tags on the main repo) auto-bumps `shellwatch-agent` here via a workflow in the upstream repo. `minisatip` is currently bumped by hand on each `v*` tag of [rado0x54/minisatip](https://github.com/rado0x54/minisatip). To upgrade:
+Both formulas are bumped by hand: `shellwatch-agent` on each `agent/v*` release of [rado0x54/ShellWatch](https://github.com/rado0x54/ShellWatch/releases), `minisatip` on each `v*` tag of [rado0x54/minisatip](https://github.com/rado0x54/minisatip). To upgrade:
 
 ```bash
 brew update
